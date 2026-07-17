@@ -1,1 +1,180 @@
+Project Overview
 
+AI Content Studio is an automation designed to eliminate repetitive content writing.
+
+Instead of manually creating content for every platform, the workflow takes one topic from Google Sheets and automatically generates optimized content for:
+
+LinkedIn
+Instagram
+X (Twitter)
+TikTok
+YouTube Shorts
+Hook
+Call-to-Action
+Hashtags
+
+The generated content is then written back into Google Sheets automatically.
+
+🎯 Goal
+
+Reduce hours of manual content creation into a fully automated workflow using AI.
+
+⚙️ Technologies Used
+n8n
+OpenAI GPT-4o Mini
+Google Sheets API
+JavaScript
+JSON
+🛠 Workflow Architecture
+Manual Trigger
+      │
+      ▼
+Read Google Sheet
+      │
+      ▼
+Loop Through Each Row
+      │
+      ▼
+OpenAI GPT-4o Mini
+      │
+      ▼
+JavaScript Parser
+      │
+      ▼
+Update Google Sheet
+📂 Google Sheet Structure
+Column	Purpose
+Topic	Content idea
+Status	Pending / Generated
+Hook	Opening sentence
+LinkedIn	LinkedIn post
+Instagram	Instagram caption
+X	Twitter post
+TikTok	TikTok script
+YouTube Shorts	Shorts script
+Hashtags	Relevant hashtags
+CTA	Call To Action
+🧠 AI Prompt
+
+The AI receives one topic and returns structured JSON.
+
+Example:
+
+{
+  "hook":"...",
+  "linkedin":"...",
+  "instagram":"...",
+  "x":"...",
+  "tiktok":"...",
+  "youtube":"...",
+  "hashtags":"...",
+  "cta":"..."
+}
+💻 JavaScript Parser
+
+The JavaScript node converts the AI response into separate fields that Google Sheets can understand.
+
+Example:
+
+const ai = JSON.parse($json.aiResponse);
+
+return [{
+  json:{
+    HOOK: ai.hook,
+    LINKEDIN: ai.linkedin,
+    INSTAGRAM: ai.instagram,
+    X: ai.x,
+    TIKTOK: ai.tiktok,
+    "YOUTUBE SHORTS": ai.youtube,
+    HASHTAGS: ai.hashtags,
+    CTA: ai.cta
+  }
+}];
+🔄 Workflow Process
+Read Topic from Google Sheets
+Loop through each pending row
+Send topic to OpenAI
+AI generates content
+Parse JSON response
+Update Google Sheets
+Mark row as Generated
+✅ Features
+Automated content generation
+Multi-platform formatting
+Dynamic Google Sheets updates
+JSON parsing
+JavaScript data transformation
+AI-generated hooks
+Automatic hashtags
+CTA generation
+📚 Challenges Solved
+
+During development, several issues were encountered and resolved:
+
+JSON parsing errors
+Google Sheets update mapping
+Loop Over Items configuration
+Row matching issues
+AI response formatting
+OpenAI output parsing
+JavaScript object conversion
+Google Sheets column mapping
+Status update logic
+Workflow execution debugging
+🚀 Future Improvements (Version 2)
+⏰ Scheduled daily content generation
+🔗 Automatic LinkedIn publishing
+📱 Instagram publishing
+🐦 X (Twitter) posting
+🎵 TikTok automation
+📊 Analytics dashboard
+🖼 AI image generation
+📧 Email notifications
+📂 Content history
+🤖 Multi-agent workflow
+📸 Example Output
+
+Input
+
+Topic:
+10 Best AI Tools for Content Creation
+
+Output
+
+LinkedIn article
+Instagram caption
+X post
+TikTok script
+YouTube Shorts script
+Hook
+CTA
+Hashtags
+
+Automatically saved into Google Sheets.
+
+📖 What I Learned
+
+Throughout this project, I gained hands-on experience with:
+
+AI workflow automation
+Prompt engineering
+JSON structures
+JavaScript parsing
+Google Sheets API integration
+n8n workflow design
+Automation debugging
+Error handling
+AI-assisted content generation
+👩‍💻 Built By
+
+Angela Emuan
+
+Founder of AI With Angie
+
+Building AI automation solutions to help individuals and businesses save time, increase productivity, and make AI accessible across Africa.
+
+⭐ Project Status
+
+Version: 1.0.0
+
+Status: ✅ Completed
